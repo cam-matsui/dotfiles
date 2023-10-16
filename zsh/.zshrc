@@ -2,6 +2,7 @@
 autoload -Uz add-zsh-hook vcs_info
 autoload -U colors && colors
 
+# git integration & prompt
 setopt prompt_subst
 add-zsh-hook precmd vcs_info
 zstyle ':vcs_info:*' enable git
@@ -13,8 +14,6 @@ zstyle ':vcs_info:*:*' check-for-changes true
 
 PROMPT=$'%F{yellow}[%f%F{8}%n%f%F{yellow}]%f %F{yellow}●%f %~ %F{yellow}> %f'
 RPROMPT=' ${vcs_info_msg_0_}'
-
-
 
 # basic auto/tab complete
 autoload -U compinit
@@ -53,3 +52,10 @@ zle-line-init() {
 zle -N zle-line-init
 echo -ne '\e[5 q'
 preexec() { echo -ne '\e[5 q' ;}
+
+# aliases
+alias ls="exa"
+alias ..="cd .."
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rf -i"
