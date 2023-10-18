@@ -9,7 +9,7 @@ function run_pre_commit()
     local command = ".venv/bin/pre-commit run --hook-stage manual --files " .. vim.fn.expand('%:p')
     local job_id = vim.fn.jobstart(command, {
         on_exit = function(_, exit_code)
-            vim.api.nvim_command('e')
+            vim.api.nvim_command('checktime')
         end,
     })
 end
