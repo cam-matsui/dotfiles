@@ -59,3 +59,6 @@ alias ..="cd .."
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
+
+# run setup commands
+setxkbmap -option "caps:swapescape"
