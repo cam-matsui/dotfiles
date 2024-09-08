@@ -5,3 +5,5 @@
 
 ## Packages Available
 - [neovim](https://github.com/neovim/neovim) 
+- [kitty](https://sw.kovidgoyal.net/kitty/)
+- [zsh](https://www.zsh.org/)
