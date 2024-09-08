@@ -18,7 +18,4 @@ in `plugins/` directory.
 - `tokyodark.nvim` for colorscheme
 - `nvim-treesitter` for syntax highlighting
 - `vim-fugitive` for git commands
-
-## Desired Functionality
-- [ ] Format on save
-- [ ] LSP
+- `lsp-zero` etc for language servers
