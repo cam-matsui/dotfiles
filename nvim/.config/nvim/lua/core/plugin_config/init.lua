@@ -1,6 +1,0 @@
-require("core.plugin_config.nvim_tree")
-require("core.plugin_config.colors")
-require("core.plugin_config.treesitter")
-require("core.plugin_config.telescope")
-require("core.plugin_config.lsp_zero")
-require("core.plugin_config.copilot")
