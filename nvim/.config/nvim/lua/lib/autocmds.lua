@@ -11,8 +11,20 @@ pre_commit_configs = {
     {
         repo = "whatnot_backend",
         extensions = { "py", "graphql" },
+    },
+    {
+        repo = "dotfiles",
+        extensions = { "lua" },
     }
 }
+
+function map(tbl, f)
+    local t = {}
+    for k,v in pairs(tbl) do
+        t[k] = f(v)
+    end
+    return t
+end
 
 function run_pre_commit()
     local command = "pre-commit run --hook-stage manual --files " .. vim.fn.expand('%:p')
@@ -28,14 +40,15 @@ local function setup_pre_commit(config)
         return
     end
 
-    extensions_str = map(
-        function(ext) return "*." .. ext end,
-        config.extensions
-    ):join(",")
+    local pattern = {}
+    for _, ext in ipairs(config.extensions) do
+        table.insert(pattern, "*." .. ext)
+    end
+    local pattern_string = table.concat(pattern, ",")
 
     vim.api.nvim_command("augroup AutoPreCommit")
     vim.api.nvim_command("autocmd!")
-    vim.api.nvim_command("autocmd BufWritePost %s lua run_pre_commit()", extensions_str)
+    vim.api.nvim_command("autocmd BufWritePost " .. pattern_string .. " lua run_pre_commit()")
     vim.api.nvim_command("augroup END")
 end
 
