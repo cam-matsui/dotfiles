@@ -79,10 +79,12 @@ return {
             require('mason-lspconfig').setup({
                 ensure_installed = {},
                 handlers = {
-                    -- this first function is the "default handler"
-                    -- it applies to every language server without a "custom handler"
                     function(server_name)
-                        require('lspconfig')[server_name].setup({})
+                        local opts = {}
+                        if server_name == "ruff" then
+                            opts.cmd = {".venv/bin/ruff", "server", "--preview"}
+                        end
+                        require('lspconfig')[server_name].setup(opts)
                     end,
                 }
             })
