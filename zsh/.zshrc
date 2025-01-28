@@ -38,9 +38,13 @@ _comp_options+=(globdots)
 profile() { export AWS_PROFILE="$1"; }
 region() { export AWS_DEFAULT_REGION="$1"; }
 
+# aws shit
 aws_profile() {
     export AWS_PROFILE=$(grep profile ~/.aws/config \
     | awk '{print $2}' \
     | tr -d ']' \
     | fzf)
 }
+
+# terraform shit
+. $(brew --prefix asdf)/libexec/asdf.sh
