@@ -1,5 +1,4 @@
 # set up vim bindings
-setxkbmap -option caps:swapescape
 set -o vi
 
 # set nvim as default editor
@@ -47,4 +46,6 @@ aws_profile() {
 }
 
 # terraform shit
-. $(brew --prefix asdf)/libexec/asdf.sh
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    . $(brew --prefix asdf)/libexec/asdf.sh
+fi
