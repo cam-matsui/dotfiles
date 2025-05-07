@@ -7,15 +7,26 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 -- pre-commit
+VENV_COMMAND = "PATH=.venv/bin:$PATH pre-commit run --hook-stage manual --files "
+UV_COMMAND = "uv run pre-commit run --files "
+
 pre_commit_configs = {
     {
         repo = "whatnot_backend",
         extensions = { "py", "graphql" },
+        command = VENV_COMMAND,
     },
     {
         repo = "dotfiles",
         extensions = { "lua" },
+        command = VENV_COMMAND,
+    },
+    {
+        repo = "dagster-workflows-core",
+        extensions = { "py", "yaml", "yml" },
+        command = UV_COMMAND,
     }
+    
 }
 
 function map(tbl, f)
@@ -26,8 +37,8 @@ function map(tbl, f)
     return t
 end
 
-function run_pre_commit()
-    local command = "PATH=.venv/bin:$PATH pre-commit run --hook-stage manual --files " .. vim.fn.expand('%:p')
+function run_pre_commit(config)
+    local command = config.command .. vim.fn.expand('%:p')
     local job_id = vim.fn.jobstart(command, {
         on_exit = function(_, exit_code)
             vim.api.nvim_command('checktime')
@@ -48,7 +59,12 @@ local function setup_pre_commit(config)
 
     vim.api.nvim_command("augroup AutoPreCommit")
     vim.api.nvim_command("autocmd!")
-    vim.api.nvim_command("autocmd BufWritePost " .. pattern_string .. " lua run_pre_commit()")
+    vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = pattern_string,
+        callback = function()
+            run_pre_commit(config)
+        end,
+    })
     vim.api.nvim_command("augroup END")
 end
 
