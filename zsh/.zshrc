@@ -27,6 +27,8 @@ zstyle ':vcs_info:*:*' check-for-changes true
 PROMPT=$'%F{yellow}[%f%F{8}%n%f%F{yellow}]%f %F{yellow}●%f %~ %F{yellow}> %f'
 RPROMPT=' ${vcs_info_msg_0_}'
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # basic auto/tab complete
 autoload -U compinit
 zstyle ':completion:*' menu select
