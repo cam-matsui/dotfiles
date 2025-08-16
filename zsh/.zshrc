@@ -51,3 +51,6 @@ aws_profile() {
 if [[ "$OSTYPE" == "darwin"* ]]; then
     . $(brew --prefix asdf)/libexec/asdf.sh
 fi
+
+# direnv shit
+eval "$(direnv hook zsh)"

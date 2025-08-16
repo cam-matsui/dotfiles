@@ -82,6 +82,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("gd", vim.lsp.buf.declaration, "Goto Declaration")
+        map("gr", vim.lsp.buf.references, "Goto References")
         map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
         map("<leader>cr", vim.lsp.buf.rename, "Rename all references")
     end,
