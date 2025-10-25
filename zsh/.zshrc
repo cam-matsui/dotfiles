@@ -54,3 +54,22 @@ fi
 
 # direnv shit
 eval "$(direnv hook zsh)"
+
+# kubectl shit
+function kube_from_cp() {
+  if [[ $# -lt 2 || $# -gt 3 ]]; then
+    echo "Usage: kube_from_cp <pod_name> <remote_file_path> [container_name]"
+    return 1 
+  fi
+
+  local pod_name=$1
+  local remote_file_path=$2
+  local file_name=$(basename "$remote_file_path")
+
+  if [[ -n $3 ]]; then
+    local container_name=$3
+    kubectl cp -c "$container_name" "$pod_name:$remote_file_path" "./$file_name"
+  else
+    kubectl cp "$pod_name:$remote_file_path" "./$file_name"
+  fi
+}
