@@ -7,6 +7,39 @@ export EDITOR=nvim
 # use eza as ls with linking for kitty
 alias ls='eza --hyperlink'
 
+# for mbe tests
+test_domain() {
+  local domain=""
+  local make_target="qtest"
+  local args=()
+
+  # Parse arguments
+  for arg in "$@"; do
+    case $arg in
+      -p|--parallel)
+        make_target="qtest-parallel"
+        ;;
+      --*)
+        args+=("$arg")
+        ;;
+      *)
+        if [[ -z $domain ]]; then
+          domain=$arg
+        else
+          args+=("$arg")
+        fi
+        ;;
+    esac
+  done
+
+  if [[ -z $domain ]]; then
+    echo "usage: qtest <domain> [--pytest-flags...] [-p|--parallel]"
+    return 1
+  fi
+
+  make "$make_target" t="tests/pytest/large/${domain} tests/pytest/small_medium/${domain} ${args[@]}"
+}
+
 # set up Node Version Manager (nvm)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

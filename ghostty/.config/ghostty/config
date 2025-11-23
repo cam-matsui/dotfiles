@@ -1,1 +1,16 @@
 theme = 0x96f
+
+cursor-style = "block"
+cursor-style-blink = true
+
+font-size = "10.5"
+font-family = "PragmataPro Mono"
+
+unfocused-split-opacity = "1"
+
+shell-integration-features = no-cursor
+
+window-save-state = always
+window-padding-balance = true
+
+copy-on-select = clipboard
