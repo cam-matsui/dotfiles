@@ -7,6 +7,18 @@ export EDITOR=nvim
 # use eza as ls with linking for kitty
 alias ls='eza --hyperlink'
 
+# git shortcuts
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gpush='git push'
+alias gpull='git pull'
+alias gs='git status'
+alias gb='git branch'
+
+# ghostty list keybinds
+alias keybinds='ghostty +list-keybinds --default'
+
 # for mbe tests
 test_domain() {
   local domain=""
