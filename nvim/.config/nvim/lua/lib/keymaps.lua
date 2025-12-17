@@ -41,3 +41,10 @@ keymap('v', '<A-j>', ":m '>+1<cr>gv=gv")
 
 -- when pasting over something, don't replace clipboard
 keymap('v', 'p', '"_dP')
+
+-- copy current file path to clipboard
+vim.keymap.set('n', '<leader>cp', function()
+  local path = vim.fn.expand('%')
+  vim.fn.setreg('+', path)
+  print('Copied to clipboard: ' .. path)
+end, opts)
