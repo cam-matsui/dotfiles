@@ -19,6 +19,12 @@ alias gb='git branch'
 # ghostty list keybinds
 alias keybinds='ghostty +list-keybinds --default'
 
+start_dbt() {
+    export $(grep -v '^#' .env | xargs)
+    source .venv/bin/activate
+    dbt compile
+}
+
 # for mbe tests
 test_domain() {
   local domain=""
