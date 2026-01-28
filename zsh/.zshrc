@@ -124,3 +124,21 @@ function kube_from_cp() {
     kubectl cp "$pod_name:$remote_file_path" "./$file_name"
   fi
 }
+
+alias dmi-all-hands='git game \
+  --include-author-file=/Users/cameron.matsui/Documents/team-members.csv \
+  --repo=/Users/cameron.matsui/Documents/dbt/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot_backend \
+  --repo=/Users/cameron.matsui/Documents/admin2-retool/ \
+  --repo=/Users/cameron.matsui/Documents/dagster-workflows-core/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot-ml/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot-android/ \
+  --repo=/Users/cameron.matsui/Documents/iac_infra_snowflake/ \
+  --repo=/Users/cameron.matsui/Documents/iac_infra_runtime/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot_web/ \
+  --repo=/Users/cameron.matsui/Documents/iac_service_chalk/ \
+  --repo=/Users/cameron.matsui/Documents/event-schema-registry/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot-ios/ \
+  --repo=/Users/cameron.matsui/Documents/kafka_connect_deploy/ \
+  --repo=/Users/cameron.matsui/Documents/shopify-sync/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot_backend_deploy/'
