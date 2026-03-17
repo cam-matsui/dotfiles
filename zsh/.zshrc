@@ -28,14 +28,14 @@ start_dbt() {
 # for mbe tests
 test_domain() {
   local domain=""
-  local make_target="qtest"
+  local task_target="qtest"
   local args=()
 
   # Parse arguments
   for arg in "$@"; do
     case $arg in
       -p|--parallel)
-        make_target="qtest-parallel"
+        task_target="qtest-parallel"
         ;;
       --*)
         args+=("$arg")
@@ -55,7 +55,7 @@ test_domain() {
     return 1
   fi
 
-  make "$make_target" t="tests/pytest/large/${domain} tests/pytest/small_medium/${domain} ${args[@]}"
+  task "$task_target" t="tests/pytest/large/${domain} tests/pytest/small_medium/${domain} ${args[@]}"
 }
 
 # set up Node Version Manager (nvm)

@@ -49,8 +49,8 @@ vim.keymap.set('n', '<leader>cp', function()
   print('Copied to clipboard: ' .. path)
 end, opts)
 
--- run make qtest with current file path
+-- run task qtest with current file path
 vim.keymap.set('n', '<leader>qt', function()
   local path = vim.fn.expand('%')
-  vim.cmd('!make qtest t=' .. path)
+  vim.cmd('!task qtest t=' .. path)
 end, opts)
