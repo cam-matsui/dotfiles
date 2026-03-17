@@ -142,3 +142,5 @@ alias dmi-all-hands='git game \
   --repo=/Users/cameron.matsui/Documents/kafka_connect_deploy/ \
   --repo=/Users/cameron.matsui/Documents/shopify-sync/ \
   --repo=/Users/cameron.matsui/Documents/whatnot_backend_deploy/'
+
+. "$HOME/.local/bin/env"
