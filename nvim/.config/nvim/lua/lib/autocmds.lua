@@ -7,8 +7,8 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 -- pre-commit
-VENV_COMMAND = "PATH=.venv/bin:$PATH pre-commit run --hook-stage manual --files "
-UV_COMMAND = "uv run pre-commit run --files "
+VENV_COMMAND = "PATH=.venv/bin:$PATH prek run --hook-stage manual --files "
+UV_COMMAND = "uv run prek run --files "
 
 pre_commit_configs = {
     {
