@@ -7,6 +7,57 @@ export EDITOR=nvim
 # use eza as ls with linking for kitty
 alias ls='eza --hyperlink'
 
+# git shortcuts
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gpush='git push'
+alias gpull='git pull'
+alias gs='git status'
+alias gb='git branch'
+
+# ghostty list keybinds
+alias keybinds='ghostty +list-keybinds --default'
+
+start_dbt() {
+    export $(grep -v '^#' .env | xargs)
+    source .venv/bin/activate
+    dbt compile
+}
+
+# for mbe tests
+test_domain() {
+  local domain=""
+  local task_target="qtest"
+  local args=()
+
+  # Parse arguments
+  for arg in "$@"; do
+    case $arg in
+      -p|--parallel)
+        task_target="qtest-parallel"
+        ;;
+      --*)
+        args+=("$arg")
+        ;;
+      *)
+        if [[ -z $domain ]]; then
+          domain=$arg
+        else
+          args+=("$arg")
+        fi
+        ;;
+    esac
+  done
+
+  if [[ -z $domain ]]; then
+    echo "usage: qtest <domain> [--pytest-flags...] [-p|--parallel]"
+    return 1
+  fi
+
+  task "$task_target" t="tests/pytest/large/${domain} tests/pytest/small_medium/${domain} ${args[@]}"
+}
+
 # set up Node Version Manager (nvm)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -26,6 +77,8 @@ zstyle ':vcs_info:*:*' check-for-changes true
 
 PROMPT=$'%F{yellow}[%f%F{8}%n%f%F{yellow}]%f %F{yellow}●%f %~ %F{yellow}> %f'
 RPROMPT=' ${vcs_info_msg_0_}'
+
+export PATH="$HOME/.local/bin:$PATH"
 
 # basic auto/tab complete
 autoload -U compinit
@@ -49,3 +102,45 @@ aws_profile() {
 if [[ "$OSTYPE" == "darwin"* ]]; then
     . $(brew --prefix asdf)/libexec/asdf.sh
 fi
+
+# direnv shit
+eval "$(direnv hook zsh)"
+
+# kubectl shit
+function kube_from_cp() {
+  if [[ $# -lt 2 || $# -gt 3 ]]; then
+    echo "Usage: kube_from_cp <pod_name> <remote_file_path> [container_name]"
+    return 1 
+  fi
+
+  local pod_name=$1
+  local remote_file_path=$2
+  local file_name=$(basename "$remote_file_path")
+
+  if [[ -n $3 ]]; then
+    local container_name=$3
+    kubectl cp -c "$container_name" "$pod_name:$remote_file_path" "./$file_name"
+  else
+    kubectl cp "$pod_name:$remote_file_path" "./$file_name"
+  fi
+}
+
+alias dmi-all-hands='git game \
+  --include-author-file=/Users/cameron.matsui/Documents/team-members.csv \
+  --repo=/Users/cameron.matsui/Documents/dbt/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot_backend \
+  --repo=/Users/cameron.matsui/Documents/admin2-retool/ \
+  --repo=/Users/cameron.matsui/Documents/dagster-workflows-core/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot-ml/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot-android/ \
+  --repo=/Users/cameron.matsui/Documents/iac_infra_snowflake/ \
+  --repo=/Users/cameron.matsui/Documents/iac_infra_runtime/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot_web/ \
+  --repo=/Users/cameron.matsui/Documents/iac_service_chalk/ \
+  --repo=/Users/cameron.matsui/Documents/event-schema-registry/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot-ios/ \
+  --repo=/Users/cameron.matsui/Documents/kafka_connect_deploy/ \
+  --repo=/Users/cameron.matsui/Documents/shopify-sync/ \
+  --repo=/Users/cameron.matsui/Documents/whatnot_backend_deploy/'
+
+. "$HOME/.local/bin/env"
