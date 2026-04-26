@@ -10,5 +10,8 @@ return {
         keymap('n', '<leader>fr', function()
             builtin.grep_string({ search = vim.fn.input('grep > ') })
         end)
+        keymap('n', '<leader>fg', function()
+            builtin.live_grep({ default_text = vim.fn.input('grep > ') })
+        end)
     end
 }
