@@ -1,7 +1,7 @@
 theme = 0x96f
 
 cursor-style = "block"
-cursor-style-blink = true
+cursor-style-blink = false
 
 font-size = "10.5"
 font-family = "PragmataPro Mono"
