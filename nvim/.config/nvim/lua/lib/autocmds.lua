@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("VimResized", {
 -- prek
 VENV_COMMAND = "PATH=.venv/bin:$PATH prek run --hook-stage manual --files "
 UV_COMMAND = "uv run prek run --files "
+PNPM_BIOME_COMMAND = "pnpm exec biome check --fix --no-errors-on-unmatched "
 
 pre_commit_configs = {
     {
@@ -25,8 +26,12 @@ pre_commit_configs = {
         repo = "dagster-workflows-core",
         extensions = { "py", "yaml", "yml" },
         command = UV_COMMAND,
-    }
-    
+    },
+    {
+        repo = "admin3",
+        extensions = { "ts", "tsx", "js", "jsx", "mjs", "cjs", "json", "jsonc", "css" },
+        command = PNPM_BIOME_COMMAND,
+    },
 }
 
 function map(tbl, f)

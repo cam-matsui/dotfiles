@@ -144,3 +144,14 @@ alias dmi-all-hands='git game \
   --repo=/Users/cameron.matsui/Documents/whatnot_backend_deploy/'
 
 . "$HOME/.local/bin/env"
+
+# fnm (Node version manager)
+eval "$(fnm env --use-on-cd)"
+
+# pnpm
+export PNPM_HOME="/Users/cameron.matsui/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

@@ -1,5 +1,8 @@
 vim.lsp.enable('ruff')
 vim.lsp.enable('pyright')
+vim.lsp.enable('vtsls')
+vim.lsp.enable('biome')
+vim.lsp.enable('tailwindcss')
 
 vim.diagnostic.config({
     virtual_text = true,
