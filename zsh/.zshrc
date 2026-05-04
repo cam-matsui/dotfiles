@@ -145,6 +145,13 @@ alias dmi-all-hands='git game \
 
 . "$HOME/.local/bin/env"
 
+# completion for task
+if command -v task > /dev/null; then
+    eval "$(task --completion bash)"
+    # Add filename completion to task mytask -- file/to/complete
+    complete -F _task -o default -o filenames task
+fi
+
 # fnm (Node version manager)
 eval "$(fnm env --use-on-cd)"
 
